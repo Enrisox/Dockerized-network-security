@@ -103,4 +103,13 @@ https://IPSERVER:8443
 
 **wind+R → ncpa.cpl → proprietà → ipv4 → imposta dns manuale**
 
+#### Per far funzionare ADguard anche con dispositivi mobile collegati in VPN è necessario modificare il file AdGuardHome.yaml mettendo in bind_host: 0.0.0.0
+![ADGUARD](../imgs/img7.png)
 
+```bash
+docker restart adguardhome
+```
+
+Per far funzionare Adguard come DNS può essere necessario collegarsi a proprio router di casa e disattivare l'impostazione che impone il DNS server del proprio internet provider su tutti i dispositivi connessi, rendendo di fatto possibile così usare ADguard.
+
+Dopo averlo fatto, controllare su siti come DNSleak.com se è presente un dns dell'ISP o i vari dns server cloudflare di Adguard.
