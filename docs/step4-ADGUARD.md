@@ -41,7 +41,7 @@ sudo systemctl restart docker     #Riavviare Docker (opzionale ma consigliato)
 adguard_config
 adguard_data
 
-2)**Da Portainer --> stack --> nuovo stack --> incolla questo docker compose
+2)**Da Portainer --> stack --> nuovo stack --> incolliamo il docker compose desiderato**
 ```bash
 version: "3"
 services:
