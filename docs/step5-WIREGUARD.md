@@ -12,21 +12,35 @@ services:
     container_name: wireguard
     cap_add:
       - NET_ADMIN
+      - SYS_MODULE
     network_mode: host        # tipo di rete è host
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-      - SERVERURL= *****    # mettere ip pubblico!
+      - SERVERURL= auto o mettere ip pubblico    # mettere ip pubblico!
       - SERVERPORT=******    #mettere porta a piacere  , es: 51040
-      - PEERS=1           
-      - PEERDNS=*******       #ip ubuntu server
-      - INTERNAL_SUBNET=       #ip/subnet in cidr   , diversa da rete privata della lan
+      - PEERS=2           
+      - PEERDNS=*******       #ip privato ubuntu server
+      - INTERNAL_SUBNET=       #rete privata diversa da rete privata della lan      es: 10.10.10.0
       - LOG_CONFS=true         #•	LOG_CONFS=true farà apparire QR code nel log  . Per esperienza non molto affidabile
     volumes:
-      - wireguard_config:/config
+      - wireguard_config:/config    #contiene le chiavi private dei peer
+      -/lib/modules:/lib/modules
+    restart: unless-stopped
+
+    ports:
+      - 50000:50000/udp        #la porta che abbiamo scelto
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
 
 volumes:
   wireguard_config:
+    external: true
+
 ```
+
+Per concludere, inquadrare QR code su app Wireguard del dispositivo mobile e controllare che i dati siano corretti( ip e porte) 
+
+Sul router è necessario configurare il port forwarding della porta scelta, sul router di casa!
