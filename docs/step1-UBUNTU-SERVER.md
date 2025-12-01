@@ -1,11 +1,11 @@
-# Preparazione del nostro ambiente virtuale su virtualbox
+# Preparazione dell'ambiente virtuale su virtualbox
 
-Come primo step ho preparato una VM su virtual Box, sul mio PC desktop, ma in futuro sposterò tutta la struttura su raspberry 5 da 8 gb
+Come primo step ho preparato una VM su virtual Box, sul mio PC desktop, ma in futuro sposterò tutta la struttura su UN Raspberry pi 5 da 8 gb.
 
 Ho installato Ubuntu server sulla VM, dopo aver scelto lingua inglese ( quella italiana non è disponibile durante installazione, la installeremo successivamente dal terminale.
 nessun servizio aggiuntivo selezionato eccetto il server SSH. scheda in bridge da impostazioni virtual box.
 
-Una volta conclusa installazione ho proceduto ad aggiornare i paccchetti con
+Una volta conclusa installazione ho proceduto ad aggiornare i paccchetti con:
 
 ```bash
 sudo apt update
