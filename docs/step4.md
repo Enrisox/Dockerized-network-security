@@ -51,7 +51,7 @@ services:
     container_name: adguardhome
     restart: always
     ports:
-      - "3000:3000"          # Setup iniziale
+      - "3000:3000"          # porta solo per primo Setup 
       - "80:80"              # Dashboard web
       - "53:53/tcp"          # DNS TCP
       - "53:53/udp"          # DNS UDP
@@ -67,4 +67,31 @@ volumes:
 ```
 
 ![ADGUARD](../imgs/img3.png)
+
+### Configurazione ADguard Home
+
+http://IPSERVER:3000       
+
+![ADGUARD](../imgs/img4.png)
+
+Seguire la procedura guidata:
+Lascia cartelle come sono (sono i due volumi)
+Lascia porte 80 / 443
+Crea login
+
+Poi sarà possibile entrare normalmente in:
+http://IPSERVER:80
+Attiva HTTPS (direttamente da AdGuard più avanti)da settings → Encryption
+
+
+**Se si ha un dominio:**
+scegli Let’s Encrypt
+inserisci dominio
+inserisci email
+
+**Se NON si ha un dominio:**
+scegli Self-signed certificate
+
+**Il container userà la porta:**
+https://IPSERVER:8443
 
