@@ -2,17 +2,18 @@
 
 Come primo step ho preparato una VM su virtual Box, sul mio PC desktop, ma in futuro sposterò tutta la struttura su UN Raspberry pi 5 da 8 gb.
 
-Ho installato Ubuntu server sulla VM, dopo aver scelto lingua inglese ( quella italiana non è disponibile durante installazione, la installeremo successivamente dal terminale.
-nessun servizio aggiuntivo selezionato eccetto il server SSH. scheda in bridge da impostazioni virtual box.
+Ho installato Ubuntu server sulla VM, dopo aver scelto lingua inglese( quella italiana non è disponibile durante installazione, la installeremo successivamente dal terminale).<br>
+Nessun servizio aggiuntivo selezionato eccetto il server SSH.  <br>
+Scheda in bridge da impostazioni virtual box.<br>
 
-Una volta conclusa installazione ho proceduto ad aggiornare i paccchetti con:
+Una volta conclusa installazione ho proceduto ad aggiornare i pacchetti con:
 
 ```bash
 sudo apt update
 sudo apt upgrade
 ip a     # per vedere l'ip della VM e collegarmi in ssh da mia macchina host 
 ```
-ssh non funzionava perchè il server ssh non trovava le chiavi host necessarie a far partire il servizio ssh.
+Ssh non funzionava perchè il server ssh non trovava le chiavi host necessarie a far partire il servizio ssh.
 Con un po' di troubleshooting ho trovato la soluzione:
 
 Quando avvii un server SSH, il server ha bisogno di chiavi host per poter stabilire connessioni sicure con i client SSH. Le chiavi host sono un insieme di chiavi crittografiche che identificano in modo univoco il server e vengono utilizzate per stabilire un canale sicuro durante la connessione SSH.
@@ -32,8 +33,7 @@ sudo systemctl restart ssh     #restartiamo il server ssh
 sudo systemctl status ssh       #ora si dovrebbe vedere active (running)
 ```
 
-
-## Configurazione della tastiera e lingua italiana su Ubuntu Server
+# Configurazione della tastiera e lingua italiana su Ubuntu Server
 Ho impostato la lingua italiana impostando la tastiera italiana da riga di comando Ubuntu server
 
 Per configurare correttamente la tastiera, ho eseguito il seguente comando:
@@ -113,7 +113,7 @@ sudo netplan apply
 ip a show enp0s3
 ```
 
-# Sistemare problema con la porta 53
+# Sistemare il problema di conflitto containers con la porta 53
 Libera la porta 53 su Ubuntu (Fondamentale)
 Ubuntu ha un suo gestore DNS interno (systemd-resolved) che occupa la porta 53. Se proviamo ad aprire la porta per AdGuard, andranno in conflitto e AdGuard non funzionerà. Dobbiamo spegnerlo.
 ```bash
