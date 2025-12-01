@@ -67,6 +67,9 @@ sudo update-locale LANG=it_IT.UTF-8
 source /etc/default/locale         #ricaricare
 locale       #verificare
 ```
-INSERISCI IMG 1
+![lingua italiana](imgs/img1.img)
+
+Nel prossimo step mostrerò l'installazione di Docker sulla VM Ubuntu server.
+
 
 
