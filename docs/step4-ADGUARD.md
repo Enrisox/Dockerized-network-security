@@ -43,27 +43,29 @@ adguard_data
 
 2)**Da Portainer --> stack --> nuovo stack --> incolla questo docker compose
 ```bash
-version: "3.8"
-
+version: "3"
 services:
   adguardhome:
     image: adguard/adguardhome:latest
     container_name: adguardhome
-    restart: always
+    restart: unless-stopped
     ports:
-      - "3000:3000"          # porta solo per primo Setup 
-      - "80:80"              # Dashboard web
-      - "53:53/tcp"          # DNS TCP
-      - "53:53/udp"          # DNS UDP
-    volumes:
-      - adguard_config:/opt/adguardhome/conf
-      - adguard_data:/opt/adguardhome/work
-    networks:
-      - default
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+      - "3000:3000/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+      - "853:853/tcp"
+      - "853:853/udp"
+    volumes:    #I dati del container montati su questi volumi saranno persistenti, anche se il container viene eliminato.
+      - adguard_work:/opt/adguardhome/work  
+      - adguard_conf:/opt/adguardhome/conf
 
-volumes:
-  adguard_config:
-  adguard_data:
+volumes:    #Docker crea automaticamente dei volumi gestiti internamente
+  adguard_work:
+  adguard_conf:
+
 ```
 
 ![ADGUARD](../imgs/img3.png)
