@@ -110,15 +110,6 @@ sudo netplan apply
 ip a show enp0s3
 ```
 
-# Sistemare il problema di conflitto containers con la porta 53
-Libera la porta 53 su Ubuntu (Fondamentale)
-Ubuntu ha un suo gestore DNS interno (systemd-resolved) che occupa la porta 53. Se proviamo ad aprire la porta per AdGuard, andranno in conflitto e AdGuard non funzionerà. Dobbiamo spegnerlo.
-```bash
-sudo systemctl stop systemd-resolved   #Fermato il servizio DNS di Ubuntu
-sudo systemctl disable systemd-resolved   #Disabilitato per sempre (così non riparte al riavvio)
-sudo rm /etc/resolv.conf   #Rimuovi il file di configurazione vecchio
-```
-
 
 
 **Nel prossimo step mostrerò l'installazione di Docker sulla VM Ubuntu server.**
