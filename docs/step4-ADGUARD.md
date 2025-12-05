@@ -104,6 +104,9 @@ https://IPSERVER:8443
 **wind+R → ncpa.cpl → proprietà → ipv4 → imposta dns manuale**
 
 #### Per far funzionare ADguard anche con dispositivi mobile collegati in VPN è necessario modificare il file AdGuardHome.yaml mettendo in bind_host: 0.0.0.0
+```bash
+find / -name AdGuardHome.yaml    #per trovare file
+```
 ![ADGUARD](../imgs/img7.png)
 
 ```bash
