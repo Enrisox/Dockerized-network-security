@@ -52,10 +52,10 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "8082:80/tcp"
+      - "8092:80/tcp"
       - "3000:3000/tcp"
-      - "4444:443/tcp"
-      - "4444:443/udp"
+      - "4464:443/tcp"
+      - "4464:443/udp"
       - "853:853/tcp"
       - "853:853/udp"
     volumes:    #I dati del container montati su questi volumi saranno persistenti, anche se il container viene eliminato.
