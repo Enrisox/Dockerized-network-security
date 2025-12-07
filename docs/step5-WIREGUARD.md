@@ -61,10 +61,10 @@ services:
     image: linuxserver/duckdns
     container_name: duckdns
     environment:
-      - PUID=1000              # dal comando id
-      - PGID=1000              # dal comando id
+      - PUID=1000              # lo trovi dal comando id <tuo user>
+      - PGID=1000              # lo trovi dal comando id <tuo user>
       - TZ=Europe/Rome
       - SUBDOMAINS=enrisox     # tuo dominio principale
-      - TOKEN=IL_TUO_TOKEN_DUCKDNS
+      - TOKEN=IL_TUO_TOKEN_DUCKDNS          #lo trovi su duckdns.org nella sezione profilo
     restart: unless-stopped
 ```
