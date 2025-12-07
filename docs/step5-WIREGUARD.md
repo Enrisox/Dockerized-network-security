@@ -47,4 +47,8 @@ Sul router è necessario configurare il port forwarding della porta scelta, sul 
 
 ## DDNS in caso di ip dinamico
 
-Dato che mio ISP mi assegna un IP diverso ad ogni ravvio del "router" di casa, ho creato un dominio DDNS con un piano gratuito e sostituito l'endpoint con il dominio suddetto in modo che se l'ip varia, non dovrò modifcare manualmente l'ip dell'endpoint dal mio dispositivo mobile.
+Dato che mio ISP mi assegna un IP diverso ad ogni ravvio del "router" di casa, ho creato un dominio DDNS con un piano gratuito e sostituito l'endpoint con il dominio suddetto in modo che se l'ip varia, non dovrò modifcare manualmente l'ip dell'endpoint dal mio dispositivo mobile. <br>
+
+Inoltre, per avere maggiore flessibilità e sottodomini illimitati, ho creato un dominio DuckDNS gratuito. DuckDNS fornisce un nome a dominio come enrisox.duckdns.org e permette di aggiungere più sottodomini senza limiti. Il Raspberry aggiorna automaticamente l'IP pubblico associato a questo dominio tramite un container DuckDNS o uno script cron, in modo che tutti i servizi ospitati sul dispositivo rimangano sempre raggiungibili anche se l'IP cambia.
+
+Questo approccio permette di centralizzare la gestione dei sottodomini per i vari servizi, come web app o server interni, e semplifica la configurazione di un reverse proxy come Nginx Proxy Manager, che instraderà ogni sottodominio al container corretto mantenendo la sicurezza e il supporto per HTTPS tramite certificati Let’s Encrypt.
