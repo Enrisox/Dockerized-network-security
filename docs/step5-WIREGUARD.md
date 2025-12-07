@@ -52,3 +52,19 @@ Dato che mio ISP mi assegna un IP diverso ad ogni ravvio del "router" di casa, h
 Inoltre, per avere maggiore flessibilità e sottodomini illimitati, ho creato un dominio DuckDNS gratuito. DuckDNS fornisce un nome a dominio come enrisox.duckdns.org e permette di aggiungere più sottodomini senza limiti. Il Raspberry aggiorna automaticamente l'IP pubblico associato a questo dominio tramite un container DuckDNS o uno script cron, in modo che tutti i servizi ospitati sul dispositivo rimangano sempre raggiungibili anche se l'IP cambia.
 
 Questo approccio permette di centralizzare la gestione dei sottodomini per i vari servizi, come web app o server interni, e semplifica la configurazione di un reverse proxy come Nginx Proxy Manager, che instraderà ogni sottodominio al container corretto mantenendo la sicurezza e il supporto per HTTPS tramite certificati Let’s Encrypt.
+
+```bash
+version: "3.9"
+
+services:
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - PUID=1000              # dal comando id
+      - PGID=1000              # dal comando id
+      - TZ=Europe/Rome
+      - SUBDOMAINS=enrisox     # tuo dominio principale
+      - TOKEN=IL_TUO_TOKEN_DUCKDNS
+    restart: unless-stopped
+```
