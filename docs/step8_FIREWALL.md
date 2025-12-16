@@ -4,7 +4,7 @@ Comando per mostrare stato firewall UFW Linux:
 sudo ufw status verbose
 ```
 
-**Blocca tutto in ingresso e lascia uscire liberamente:**
+**Ho aggiunto le rules per bloccare tutto in ingresso e lasciare uscire traffico liberamente:**
 ```bash
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
