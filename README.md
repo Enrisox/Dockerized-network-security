@@ -9,8 +9,11 @@
 * WireGuard (VPN)
 * Caddy (reverse proxy)
 * Ip tables/UFW (firewall nativo Linux)
+* Cloudflare DDNS
+* Crowdsec
+* Netdata
 
-Lo scopo della repository è documentare passo dopo passo la configurazione dell’intero sistema, in modo semplice, ripetibile e adatto sia ad ambienti VirtualBox sia ad hardware dedicato come Raspberry Pi 5.
+Lo scopo della repository è documentare passo dopo passo la configurazione dell’intero sistema, in modo semplice, ripetibile e adatto sia ad ambienti VirtualBox sia ad hardware dedicato come Raspberry Pi o mini PC.
 Ho cercato di includere i problemi riscontrati e le relative soluzioni.
 
 📚**Indice dei contenuti**
