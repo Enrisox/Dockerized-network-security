@@ -1,5 +1,5 @@
 # Cloudflare come edge reverse proxy
-
+Cloudflare e Caddy svolgono entrambi funzione di reverse proxy, ma su strati e domini di responsabilità diversi: Cloudflare opera come proxy “edge” (Internet-facing), Caddy come proxy “origin” (in LAN/host) che effettua routing verso i container e nasconde dietro di se' i containers hostati.
 
 ## Difese del piano free incluse
 
