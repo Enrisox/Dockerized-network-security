@@ -40,3 +40,6 @@ Ciascuna guida è contenuta nella cartella /docs.  <br>
 * AdGuard Home
 * WireGuard
 * VirtualBox / Raspberry Pi 5
+* Caddy
+* Netdata
+* Cloudflare
