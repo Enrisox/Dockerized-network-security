@@ -2,7 +2,7 @@
 Fail2Ban e CrowdSec possono coesistere senza conflitti:
 - Fail2Ban: reattivo e rapido su SSH (ban locale immediato).
 - CrowdSec: analisi più complessa, community blocklist, decisioni condivise
-- 
+  
 ## Installazione Fail2Ban
 ```bash
 sudo apt update
