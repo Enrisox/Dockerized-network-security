@@ -1,7 +1,7 @@
 # Installazione e configurazione Crowdsec
 
-**CrowdSec** è un software di sicurezza open source che monitora i log (es. SSH e web server), riconosce pattern di attacco (come brute force e scansioni) e poi applica contromisure, tipicamente bloccando gli IP malevoli tramite componenti di “enforcement” (bouncer) o integrazioni con firewall/proxy
-
+**CrowdSec** è un software di sicurezza open source che monitora i log (es. SSH e web server), riconosce pattern di attacco (come brute force e scansioni) e poi applica contromisure, tipicamente bloccando gli IP malevoli tramite componenti di “enforcement” (bouncer) o integrazioni con firewall/proxy.
+CrowdSec protegge il mio server in due modi: blocca proattivamente IP noti malevoli (community blocklist) e reagisce, ai comportamenti sospetti che vede nei miei log, generando ban (temporanei o permanenti).
 
 ## Aggiungere il repository ufficiale
 
@@ -65,9 +65,22 @@ Non è servito impostare manualmente la chiave perché il bouncer iptables, inst
 sudo cat /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml.local
 ```
 
-Il bouncer di CrowdSec è il componente che mette in pratica le decisioni prese dal motore CrowdSec (ban, captcha, ecc.): il motore rileva l’attacco dai log e salva una “decisione” nella Local API, mentre il bouncer interroga la Local API e applica la contromisura nel punto giusto (firewall, Cloudflare, reverse proxy, ecc.)
+Il **bouncer** di CrowdSec è il componente che mette in pratica le decisioni prese dal motore CrowdSec (ban, captcha, ecc.): il motore rileva l’attacco dai log e salva una “decisione” nella Local API, mentre il bouncer interroga la Local API e applica la contromisura nel punto giusto (firewall, Cloudflare, reverse proxy, ecc.)
 Nel mio caso, il crowdsec-firewall-bouncer è un bouncer “firewall”: applica i ban a livello di iptables/nftables sul server, bloccando il traffico in ingresso dagli IP “cattivi”.​
 
-Differenza rapida:
-**CrowdSec (engine/agent)**: analizza log → genera alert/decisioni.​
-**Bouncer**: legge decisioni dalla Local API (autenticandosi con una API key) → le applica (blocca).
+Differenza:
+- **CrowdSec (engine/agent)**: analizza log → genera alert/decisioni. <br>​
+- **Bouncer**: legge decisioni dalla Local API (autenticandosi con una API key) → le applica (blocca).
+
+## Vedere IP bannati (CrowdSec)
+Per vedere gli IP che CrowdSec ha deciso di bannare (indipendentemente da iptables), usa:
+La **decision list** è il comando che mostra le “decisioni” attive salvate nella Local API di CrowdSec: in pratica l’elenco delle azioni da applicare e su quale target (IP, range, etc)
+```dockerfile
+sudo cscli decisions list
+
+sudo ipset list crowdsec-blacklists-0 | head -n 30       #Per elencare gli IPv4 attualmente nel set (quelli che iptables sta droppando)
+
+sudo ipset list crowdsec6-blacklists-0 | head -n 20      #Per elencare gli IPv6 attualmente nel set (quelli che iptables sta droppando):
+
+```
+
