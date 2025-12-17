@@ -1,5 +1,8 @@
 # Ulteriore hardening SSH server
-
+Fail2Ban e CrowdSec possono coesistere senza conflitti:
+- Fail2Ban: reattivo e rapido su SSH (ban locale immediato).
+- CrowdSec: analisi più complessa, community blocklist, decisioni condivise
+- 
 ## Installazione Fail2Ban
 ```bash
 sudo apt update
@@ -45,4 +48,12 @@ findtime = 600
 sudo systemctl enable fail2ban
 sudo systemctl start fail2ban
 sudo systemctl status fail2ban
+```
+### comandi utili
+```bash
+sudo fail2ban-client status               #Verifica jail SSH attiva
+sudo fail2ban-client status sshd         #Vedere IP attualmente bannati
+sudo fail2ban-client set sshd unbanip <IP>  #Sbannare manualmente un IP (se ti blocchi per errore)
+sudo fail2ban-client set sshd banip <IP>    #Bannare manualmente un IP
+sudo tail -f /var/log/fail2ban.log          #Log Fail2Ban
 ```
