@@ -21,9 +21,9 @@ Ciascuna guida è contenuta nella cartella /docs.  <br>
 📄 [Step 3 – Portainer](docs/step3-PORTAINER.md)  
 📄 [Step 4 – AdGuard Home](docs/step4-ADGUARD.md)  
 📄 [Step 5 – WireGuard](docs/step5-WIREGUARD.md)<br>
-📄 [Step 6 – WireGuard](docs/step6-RaspberryPi5.md)<br>
-📄 [Step 7 – WireGuard](docs/step7_CADDY.md)<br>
-📄 [Step 8 – WireGuard](docs/step8_FIREWALL.md)<br>
+📄 [Step 6 – Raspberry Pi 5](docs/step6-RaspberryPi5.md)<br>
+📄 [Step 7 – Caddy](docs/step7_CADDY.md)<br>
+📄 [Step 8 – UFW](docs/step8_FIREWALL.md)<br>
 
 **🧱 Obiettivi del progetto**
 
