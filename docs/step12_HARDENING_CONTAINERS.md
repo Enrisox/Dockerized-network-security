@@ -79,8 +79,17 @@ Montare /tmp in RAM (tramite tmpfs) ha tre vantaggi strategici:
 3. Ridurre impatto di una **container escape**: valutare Docker rootless per limitare i danni anche se un container viene bucato.​
 4. **Abilitare restrizioni runtime**: mantieni seccomp attivo (profilo default o più stretto) e profili LSM (AppArmor/SELinux) dove possibile
 5. **Kernel aggiornato e patch veloci**: i container condividono il kernel dell’host, quindi molte tecniche di escape sfruttano CVE del kernel/cgroups; patchare e riavviare su kernel fixed riduce proprio quella classe di attacchi.​
-6. **SELinux/AppArmor + seccomp** OWASP consiglia di non disabilitare i profili di sicurezza di default e di usare seccomp/AppArmor/SELinux per restringere syscalls e azioni possibili nel container.​
-7. Ridurre privilegi: OWASP raccomanda di “set a user” (non root) e di prevenire escalation in-container (es. no-new-privileges, limitazione capabilities) perché i privilegi extra amplificano l’impatto di una compromissione.​
+6. **SELinux/AppArmor + seccomp** OWASP consiglia di non disabilitare i profili di sicurezza di default e di usare seccomp/AppArmor/SELinux per restringere syscalls e azioni possibili nel container.
+**Application armor** è un sistema di Mandatory Access Control (MAC), ovvero controllo degli accessi obbligatorio: non basta che un file    sia leggibile dal tuo utente, deve anche essere esplicitamente permesso dal profilo AppArmor del programma che stai usando
+Quando usi Docker su sistemi come Ubuntu o Debian, Docker applica automaticamente un profilo di base chiamato docker-default a tutti i container, a meno che tu non lo disabiliti.​
+
+Questo profilo predefinito fa già un buon lavoro:
+
+Impedisce di scrivere in cartelle critiche del sistema (/sys, /proc).
+Blocca operazioni pericolose (come montare nuovi dischi).
+Riduce il rischio che un exploit nel container riesca a "scappare" sull'host
+
+7.Ridurre privilegi: OWASP raccomanda di “set a user” (non root) e di prevenire escalation in-container (es. no-new-privileges, limitazione capabilities) perché i privilegi extra amplificano l’impatto di una compromissione.
 8. Isolare risorse host (mount/namespace/cgroups):
 - **Mount di Path Sensibili (in RW)**
 - **Montare una cartella del server (host) dentro il container con permessi di scrittura** (RW - Read/Write). Ad esempio, montare la cartella /etc dell'host dentro il container.
@@ -95,11 +104,13 @@ Di default, Docker limita ciò che un container può vedere e fare con /proc e /
 - **Esposizione del Docker Socket**
 Montare il file /var/run/docker.sock dell'host all'interno di un container.
 
-Questo file è l'API del demone Docker. Chiunque possa comunicare con questo socket può dare ordini a Docker, come "avvia un nuovo container". Un attaccante che controlla un container con accesso al socket può semplicemente lanciare un altro container, questa volta privilegiato (--privileged) e con la cartella radice dell'host (/) montata al suo interno. A quel punto ha il controllo totale della macchina. È l'escape più classico e devastante.<br>​
-9. **Audit delle immagini**: usare immagini trusted e scanner di vulnerabilità ,come Trivy nel mio caso,riduce la probabilità di portarti in casa CVE note (dipendenze Python, libc, openssl, ecc.).<br>​
-10. **Segmentazione di rete**: OWASP cita anche il tema “disable inter-container communication” e, più in generale, separare reti/permessi limita il lateral movement se un container viene bucato.<br>​
+Questo file è l'API del demone Docker. Chiunque possa comunicare con questo socket può dare ordini a Docker, come "avvia un nuovo container". Un attaccante che controlla un container con accesso al socket può semplicemente lanciare un altro container, questa volta privilegiato (--privileged) e con la cartella radice dell'host (/) montata al suo interno. A quel punto ha il controllo totale della macchina. È l'escape più classico e devastante.<br>
+​
+9.  **Audit delle immagini**: usare immagini trusted e scanner di vulnerabilità ,come Trivy nel mio caso,riduce la probabilità di portarti in casa CVE note (dipendenze Python, libc, openssl, ecc.).<br>​
+10. **Segmentazione di rete**: OWASP cita anche il tema “disable inter-container communication” e, più in generale, separare reti/permessi limita il lateral movement se un container viene bucato.<br>
+​
 11. Test e monitoraggio: l’idea è trovare vulnerabilità/config sbagliate prima degli altri e rilevare comportamenti anomali a runtime (exec sospetti, connessioni strane, ecc.).<br>​
-
+​
 # Trivy
 
 **Trivy è uno scanner di sicurezza per:**
