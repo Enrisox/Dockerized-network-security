@@ -89,17 +89,18 @@ Riduce il rischio che un exploit nel container riesca a "scappare" sull'host
 
 7. Ridurre privilegi: OWASP raccomanda di “set a user” (non root) e di prevenire escalation in-container (es. no-new-privileges, limitazione capabilities) perché i privilegi extra amplificano l’impatto di una compromissione.
 8. Isolare risorse host (mount/namespace/cgroups):
-- **Mount di Path Sensibili (in RW)**
-- **Montare una cartella del server (host) dentro il container con permessi di scrittura** (RW - Read/Write). Ad esempio, montare la cartella /etc dell'host dentro il container.
+
+**Mount di Path Sensibili (in RW)**
+**Montare una cartella del server (host) dentro il container con permessi di scrittura** (RW - Read/Write). Ad esempio, montare la cartella /etc dell'host dentro il container.
 
 Se un attaccante ottiene il controllo dell'app nel container, può usare questo "ponte" per modificare direttamente i file di sistema dell'host. Potrebbe aggiungere un utente, modificare le chiavi SSH autorizzate, disabilitare il firewall, ecc. È la via più diretta per un takeover completo del server.
 
-- **Accesso a /proc o /sys**
+**Accesso a /proc o /sys**
 /proc e /sys sono filesystem speciali in Linux che non contengono file veri e propri, ma l'interfaccia di controllo del kernel. Permettono di vedere e a volte modificare i processi in esecuzione e i parametri del sistema operativo.
 
 Di default, Docker limita ciò che un container può vedere e fare con /proc e /sys. Ma se si allentano queste restrizioni (spesso usando --privileged), un attaccante potrebbe raccogliere informazioni su tutti i processi dell'host (non solo quelli del container) o tentare di manipolare il kernel per facilitare un escape (fuga dal container).
 
-- **Esposizione del Docker Socket**
+**Esposizione del Docker Socket**
 Montare il file /var/run/docker.sock dell'host all'interno di un container.
 
 Questo file è l'API del demone Docker. Chiunque possa comunicare con questo socket può dare ordini a Docker, come "avvia un nuovo container". Un attaccante che controlla un container con accesso al socket può semplicemente lanciare un altro container, questa volta privilegiato (--privileged) e con la cartella radice dell'host (/) montata al suo interno. A quel punto ha il controllo totale della macchina. È l'escape più classico e devastante.<br>
