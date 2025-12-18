@@ -3,16 +3,14 @@
 Anche se l’app gira in un container “minimal” e non-root, il rischio non è azzerato: se l’app viene compromessa (RCE), l’attaccante ottiene un punto d’appoggio nella rete interna e può provare movimento laterale verso altri servizi/host, e in alcuni casi tentare una “container escape” sfruttando configurazioni deboli o bug di kernel/runtime.​
 
 ## Container escape
-Una “container escape” è quando un processo che gira dentro un container riesce a uscire dai confini di isolamento del container e ottenere accesso a risorse che non dovrebbe vedere, come filesystem/risorse dell’host o altri container sullo stesso host.​
+Una **container escape** è quando un processo che gira dentro un container riesce a uscire dai confini di isolamento del container e ottenere accesso a risorse che non dovrebbe vedere, come filesystem/risorse dell’host o altri container sullo stesso host.​
 Se un attaccante compromette la tua app (es. RCE) e poi fa container escape, non è più “limitato” a quel container: può potenzialmente arrivare all’host Linux e quindi avere un impatto molto più grave (furto di dati, persistenza, controllo di altri servizi).​
 
-Come può succedere
-Le due cause tipiche sono: (1) misconfigurazioni che danno troppi privilegi al container (capabilities eccessive, container privilegiati, mount pericolosi), oppure (2) vulnerabilità nel runtime/kernel che permettono di bypassare i meccanismi di isolamento. Un esempio pratico di misconfigurazione molto rischiosa è dare al container accesso al Docker socket (/var/run/docker.sock), perché può portare a controllo del motore Docker e quindi dell’host.​
+### Come può succedere?
+Le due cause tipiche sono: misconfigurazioni che danno troppi privilegi al container (capabilities eccessive, container privilegiati, mount pericolosi), oppure vulnerabilità nel runtime/kernel che permettono di bypassare i meccanismi di isolamento. Un esempio pratico di misconfigurazione molto rischiosa è dare al container accesso al Docker socket (/var/run/docker.sock), perché può portare a controllo del motore Docker e quindi dell’host.​
 
-Perché è importante
+### Perché è importante?
 I container condividono il kernel dell’host, quindi l’isolamento non è “assoluto” come una VM: un’escape riuscita è tra gli scenari peggiori perché può trasformare una singola app bucata in una compromissione dell’intero server.
-
-container escape (uscire dal container verso l’host) e lateral movement (muoversi da un servizio compromesso verso altri servizi/host).​
 
 ## Lateral movement
 Il fatto che sia “in rete interna proxata da Caddy” riduce l’esposizione diretta, ma se l’app dietro Caddy ha una falla e viene eseguito codice nel container, da lì l’attaccante può comunque parlare con ciò che è raggiungibile sulla rete Docker/LAN (DB, Redis, altri container, servizi interni). Docker, su bridge default, permette inter-container connectivity di base, quindi se metti tanti servizi sulla stessa rete senza segmentazione, stai creando una rete “piatta” che facilita il movimento laterale. La mitigazione tipica è micro-segmentare: reti separate e regole che permettono solo i flussi necessari, così anche se un servizio cade non diventa automaticamente “pivot” verso tutto il resto.​
