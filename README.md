@@ -1,4 +1,4 @@
-# Dockerized-network-security
+# Secure-Home-Lab-Docker
 
 **Benvenuto nel mio progetto personale dedicato alla costruzione di un ambiente self-hosted, modulare e scalabile, basato su:**
 
