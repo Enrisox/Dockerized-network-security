@@ -15,7 +15,7 @@
 
 Lo scopo della repository è documentare passo dopo passo la configurazione dell’intero sistema, in modo semplice, ripetibile e adatto sia ad ambienti VirtualBox sia ad hardware dedicato come Raspberry Pi o mini PC.
 Ho cercato di includere i problemi riscontrati e le relative soluzioni.<br>
-**Il progetto è iniziato a novembre 2025 e sta continuando a essere integrato con migliorie e integrazioni.**
+**Il progetto è iniziato a novembre 2025 ed è ancora in costante integrazione e aggiornamento.**
 
 📚**Indice dei contenuti**
 
