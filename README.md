@@ -18,7 +18,6 @@ Ho cercato di includere i problemi riscontrati e le relative soluzioni.
 
 📚**Indice dei contenuti**
 
-Ciascuna guida è contenuta nella cartella /docs.  <br>
 📄 [Step 1 – Ubuntu Server](docs/step1-UBUNTU-SERVER.md)  
 📄 [Step 2 – Docker](docs/step2-DOCKER.md)  
 📄 [Step 3 – Portainer](docs/step3-PORTAINER.md)  
@@ -35,19 +34,9 @@ Ciascuna guida è contenuta nella cartella /docs.  <br>
 
 **🧱 Obiettivi del progetto**
 
-* Centralizzare servizi di rete in un ambiente dockerizzato
-* Migliorare sicurezza e privacy tramite DNS filtering + VPN
-* Preparare un’infrastruttura portabile verso Raspberry Pi
-* Documentare tutto per poter replicare facilmente il sistema
+* Centralizzare servizi di rete in un ambiente dockerizzato.
+* Migliorare sicurezza e privacy tramite DNS filtering + VPN.
+* Hostare un’ home server a casa.
+* Documentare tutto per poter replicare facilmente il sistema.
 
-🛠️ **Tecnologie utilizzate**
 
-* Ubuntu Server 22.04+
-* Docker Engine & Docker Compose
-* Portainer CE
-* AdGuard Home
-* WireGuard
-* VirtualBox / Raspberry Pi 5
-* Caddy
-* Netdata
-* Cloudflare
