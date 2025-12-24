@@ -100,10 +100,11 @@ network:
                 addresses:
                   - 1.1.1.1
                   - 8.8.8.8
+```
 •	192.168.1.20 # l’IP che vogliamo assegnare al server
 •	192.168.1.1 → il gateway della nostra LAN
 
-```
+
 3)**Infine ho applicato la configurazione netplan**
 ```bash
 sudo netplan apply
